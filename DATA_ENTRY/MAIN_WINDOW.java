@@ -6,6 +6,7 @@ public class MAIN_WINDOW {
 	{
 		MAIN_WINDOW main_window = new MAIN_WINDOW();
 		System.out.print("hellofrnd");
+		System.out.print("this is new class");
 	}
 
 }
