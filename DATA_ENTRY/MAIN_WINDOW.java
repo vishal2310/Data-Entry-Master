@@ -21,51 +21,26 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		}
 	}
 	
-	void work_task(String user_id, String password, int counter)
+	void work_task(String user_name, String password, int counter)
 	{	
-		open_new_webdriver(15);
+		open_new_webdriver(5);
 		open_link(WEBSITE_MASTER_SOLUTION);
 		
-		login(user_id, password);
+		login(user_name, password);
 
 		close_notification();
 
 		go_to_work_page();
 		
-		if(get_work_status(user_id))
+		if(get_work_status(user_name))
 		{
-			System.out.print("hiiiii");
+			complete_work();
+			result_to_display(user_name);
 		}
-//		
-//		goToWorkPage(2);
-//
-//		boolean status = check_for_work(user_id);
-//
-//		if(status)
-//		{
-//			boolean work_status = false;
-//			
-//			work_status = completeDataEntry(0);;
-//			
-//			while (counter > 0 && !work_status)
-//			{
-//				counter--;
-//				global_obj.web_driver.quit();
-//				global_obj.web_driver = null;
-//				work_task(user_id, password, counter);
-//			}
-//			
-//			Thread.sleep(2000); 
-//			
-//			resultAfterDataEntry(user_id);
-//		}
-//			
-//		logoutAccount();
-//		global_obj.web_driver.quit();
-//		global_obj.web_driver = null;
+		logout();
+		
 		close_webdriver();
 	}
-	
 	
 	void login(String userName, String password)
 	{	
@@ -88,7 +63,7 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	
 	boolean get_work_status(String user_name)
 	{
-		if(check_element_existance("SSDASD", "ID"))
+		if(check_element_existance("ENTER_CAPTCHA_ID_MST", "ID"))
 		{
 			return true;
 		}
@@ -96,15 +71,23 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		{
 			int remaining_data = Integer.parseInt(get_value_by_xpath(REMAINING_DATA_XPATH_MST));
 			
-			if(remaining_data == 299)
+			if(remaining_data == 0)
 			{
 				result_to_display(user_name);
 				return false;
 			}
 			return true;
 		}
-		
-		return false;
+		else if(check_element_existance(HOLIDAY_NOTICE_XPATH_MST, "XPATH"))
+		{
+			print_line("\n user name : "+user_name+ "\n Status : " +get_value_by_xpath(HOLIDAY_NOTICE_XPATH_MST)+"\n");
+			return false;
+		}
+		else
+		{
+			print_line("\n user name : "+user_name+ "\n Status : No Notice But No Work!!!");
+			return false;
+		}
 	}
 	
 	void result_to_display(String user_name)
@@ -119,8 +102,29 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 							+ " attempted : "+attempted_entry+"\n"
 							+ " right Entry : "+rightEntry_entry+ "\n"
 							+ " wrong Entry : "+wrongEntry_entry+ "\n"; 
+		
+		print_line(result_desk);
+	}
 	
+	void complete_work()
+	{
+		int remaining_data = Integer.parseInt(get_value_by_xpath(REMAINING_DATA_XPATH_MST));
+		
+		while(remaining_data > 0)
+		{
+			set_value_by_id(ENTER_CAPTCHA_ID_MST, get_value_by_xpath(CAPTCHA_IMAGE_XPATH_MST));
+			__click_by_id(SAVE_AND_NEXT_BUTTON_ID_MST);
+			remaining_data--;
+		}
+	}
+	
+	void logout()
+	{	
+		//here I have added double click bcz we need 2 click to open my acc drop box
+		click_by_xpath(MY_ACCOUNT_MENU_XPATH_MST);
+		click_by_xpath(MY_ACCOUNT_MENU_XPATH_MST);
+		
+		click_by_xpath(LOGOUT_XPATH_MST);
 	}
 }
-
 

@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WEBDRIVER_CS extends GLOBAL_OBJECT_CS{
+public class WEBDRIVER_CS extends COMMON_FUNCTION_CS{
 
 	WebDriver web_driver;
 	WebDriverWait explicit_wait;
@@ -76,7 +76,6 @@ public class WEBDRIVER_CS extends GLOBAL_OBJECT_CS{
 	
 	void check_element_clickable(String object_value, String type_of_element)
 	{
-
 		if(type_of_element == "XPATH")
 		{
 			explicit_wait.until(ExpectedConditions.elementToBeClickable(By.xpath(object_value)));
@@ -87,21 +86,31 @@ public class WEBDRIVER_CS extends GLOBAL_OBJECT_CS{
 		}
 	}
 	
+	void __click_by_xpath(String xpath)
+	{
+		web_driver.findElement(By.xpath(xpath)).click();
+	}
+	
 	void click_by_xpath(String xpath)
 	{
 		if(check_element_existance(xpath, "XPATH"))
 		{
 			check_element_clickable(xpath, "XPATH");
-			web_driver.findElement(By.xpath(xpath)).click();
+			__click_by_xpath(xpath);
 		}
+	}
+	
+	void __click_by_id(String id)
+	{
+		web_driver.findElement(By.id(id)).click();
 	}
 	
 	void click_by_id(String id)
 	{
-		if(check_element_existance(id, "XPATH"))
+		if(check_element_existance(id, "ID"))
 		{
 			check_element_clickable(id, "ID");
-			web_driver.findElement(By.id(id)).click();
+			__click_by_id(id);
 		}
 	}
 	
