@@ -25,6 +25,9 @@ public class GLOBAL_OBJECT_CS{
 		ID_PASS_DICT.put("IFNU14828", "Mayank.02");
 		ID_PASS_DICT.put("IFNU14544", "priyank@1209");
 	}
+
+//selenium parameters
+	int wait_time_selenium = 7;
 	
 //master solution website's objects
 	String WEBSITE_MASTER_SOLUTION = "https://mastersolutions.online/Users/JobWork";

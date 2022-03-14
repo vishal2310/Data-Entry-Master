@@ -23,16 +23,20 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	
 	void work_task(String user_name, String password, int counter)
 	{	
-		open_new_webdriver(5);
+		open_new_webdriver(wait_time_selenium);
 		open_link(WEBSITE_MASTER_SOLUTION);
 		
 		login(user_name, password);
 
-		close_notification();
+		//close_notification();
 
 		go_to_work_page();
 		
-		if(get_work_status(user_name))
+		set_implicite_wait(1);
+		boolean status = get_work_status(user_name);
+		set_implicite_wait(wait_time_selenium);
+		
+		if(status)
 		{
 			complete_work();
 			result_to_display(user_name);
