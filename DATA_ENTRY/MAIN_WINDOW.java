@@ -3,6 +3,8 @@ import java.util.concurrent.TimeoutException;
 
 public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	
+	String entry_result_for_mail = "***********************";
+	
 	MAIN_WINDOW()
 	{
 		super();
@@ -11,19 +13,21 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	public static void main(String[] args)
 	{
 		MAIN_WINDOW main_window = new MAIN_WINDOW();
-		
+
 		for (Map.Entry<String,String> entry : ID_PASS_DICT.entrySet())
 		{
 			String user_id = entry.getKey();
 			String password = entry.getValue();
 			
-			main_window.work_task(user_id, password, 3);
+			main_window.work_task(user_id, password);
 		}
+		
+		main_window.send_result_mail();
 	}
 	
-	void work_task(String user_name, String password, int counter)
+	void work_task(String user_name, String password)
 	{	
-		open_new_webdriver(wait_time_selenium);
+		open_new_webdriver(WAIT_TIME_SELENIUM);
 		open_link(WEBSITE_MASTER_SOLUTION);
 		
 		login(user_name, password);
@@ -32,9 +36,9 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 
 		go_to_work_page();
 		
-		set_implicite_wait(1);
+		set_implicite_wait(2);
 		boolean status = get_work_status(user_name);
-		set_implicite_wait(wait_time_selenium);
+		set_implicite_wait(WAIT_TIME_SELENIUM);
 		
 		if(status)
 		{
@@ -84,12 +88,22 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		}
 		else if(check_element_existance(HOLIDAY_NOTICE_XPATH_MST, "XPATH"))
 		{
-			print_line("\n user name : "+user_name+ "\n Status : " +get_value_by_xpath(HOLIDAY_NOTICE_XPATH_MST)+"\n");
+			String holiday_status = "\n user name : "+user_name+ "\n Status : " +get_value_by_xpath(HOLIDAY_NOTICE_XPATH_MST)+"\n";
+			
+			print_line(holiday_status);
+			
+			entry_result_for_mail = entry_result_for_mail + holiday_status;
+			
 			return false;
 		}
 		else
 		{
-			print_line("\n user name : "+user_name+ "\n Status : No Notice But No Work!!!");
+			String unknown_status = "\n user name : "+user_name+ "\n Status : No Notice But No Work!!!";
+			
+			print_line(unknown_status);
+			
+			entry_result_for_mail = entry_result_for_mail + unknown_status;
+			
 			return false;
 		}
 	}
@@ -108,6 +122,8 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 							+ " wrong Entry : "+wrongEntry_entry+ "\n"; 
 		
 		print_line(result_desk);
+		
+		entry_result_for_mail = entry_result_for_mail + result_desk;
 	}
 	
 	void complete_work()
@@ -116,7 +132,7 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		
 		while(remaining_data > 0)
 		{
-			set_value_by_id(ENTER_CAPTCHA_ID_MST, get_value_by_xpath(CAPTCHA_IMAGE_XPATH_MST));
+			__set_value_by_id(ENTER_CAPTCHA_ID_MST, get_value_by_xpath(CAPTCHA_IMAGE_XPATH_MST));
 			__click_by_id(SAVE_AND_NEXT_BUTTON_ID_MST);
 			remaining_data--;
 		}
@@ -129,6 +145,14 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		click_by_xpath(MY_ACCOUNT_MENU_XPATH_MST);
 		
 		click_by_xpath(LOGOUT_XPATH_MST);
+	}
+	
+	void send_result_mail()
+	{
+		SEND_MAIL_CS send_mail_obj = new SEND_MAIL_CS();
+		
+		send_mail_obj.send_email(LOGIN_ID_OUTLOOK, PASSWORD_OUTLOOK, MAIL_ID_TO_SEND_RESULT, 
+									"ENTRY...RESULT", entry_result_for_mail);
 	}
 }
 
