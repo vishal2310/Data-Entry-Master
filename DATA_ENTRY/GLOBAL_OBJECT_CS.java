@@ -5,7 +5,6 @@ public class GLOBAL_OBJECT_CS{
 
 	public
 	String ADMIN_USER_NAME = "Vishalpatel";
-	
 	static Map<String,String> ID_PASS_DICT = new HashMap<String,String>();
 	
 	public GLOBAL_OBJECT_CS()
@@ -21,13 +20,23 @@ public class GLOBAL_OBJECT_CS{
 		ID_PASS_DICT.put("IFNU11441", "#Mmn2102");	
 		ID_PASS_DICT.put("IFNU11610", "Pankil@1209");		
 		ID_PASS_DICT.put("RKU12614", "ROOT@1111");
-		ID_PASS_DICT.put("MSTU1947", "AB1234@");
 		ID_PASS_DICT.put("IFNU14828", "Mayank.02");
 		ID_PASS_DICT.put("IFNU14544", "priyank@1209");
 	}
 
 //selenium parameters
-	int wait_time_selenium = 7;
+	int WAIT_TIME_SELENIUM = 7;
+
+//outlook
+	String LOGIN_ID_OUTLOOK = "vishal.patel2310@outlook.com";
+	String PASSWORD_OUTLOOK = "vishal.21";
+	
+	String[] MAIL_ID_TO_SEND_RESULT = { 
+										"patvishal.01@gmail.com",
+										"pankil909@gmail.com",
+										"priyank1051p@gmail.com"
+										
+										};
 	
 //master solution website's objects
 	String WEBSITE_MASTER_SOLUTION = "https://mastersolutions.online/Users/JobWork";

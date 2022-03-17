@@ -51,27 +51,26 @@ public class WEBDRIVER_CS extends COMMON_FUNCTION_CS{
 	
 //***********operation functions**********************
 	
+//checking elements properties
 	Boolean check_element_existance(String object_value, String type_of_element)
 	{
-		WebElement element;
 		
 		try
 		{
 			if(type_of_element == "XPATH")
 			{
-				element = web_driver.findElement(By.xpath(object_value));
+				web_driver.findElement(By.xpath(object_value));
 			}
 			else
 			{
-				element = web_driver.findElement(By.id(object_value));
+				web_driver.findElement(By.id(object_value));
 			}
+			return true;
 		}
 		catch(NoSuchElementException e)
 		{
 			return false;
 		}
-		
-		return (element.isDisplayed() && element.isEnabled());
 	}
 	
 	void check_element_clickable(String object_value, String type_of_element)
@@ -86,6 +85,7 @@ public class WEBDRIVER_CS extends COMMON_FUNCTION_CS{
 		}
 	}
 	
+//click functions
 	void __click_by_xpath(String xpath)
 	{
 		web_driver.findElement(By.xpath(xpath)).click();
@@ -119,14 +119,34 @@ public class WEBDRIVER_CS extends COMMON_FUNCTION_CS{
 		web_driver.findElement(By.name(name)).click();
 	}
 	
-	void set_value_by_xpath(String xpath, String value_to_set)
+//setter functions
+	
+	void __set_value_by_xpath(String xpath, String value_to_set)
 	{
 		web_driver.findElement(By.xpath(xpath)).sendKeys(value_to_set);
 	}
 	
-	void set_value_by_id(String id, String value_to_set)
+	void set_value_by_xpath(String xpath, String value_to_set)
+	{
+		if(check_element_existance(xpath, "XPATH"))
+		{
+			check_element_clickable(xpath, "XPATH");
+			__set_value_by_xpath(xpath, value_to_set);
+		}
+	}
+	
+	void __set_value_by_id(String id, String value_to_set)
 	{
 		web_driver.findElement(By.id(id)).sendKeys(value_to_set);
+	}
+	
+	void set_value_by_id(String id, String value_to_set)
+	{
+		if(check_element_existance(id, "ID"))
+		{
+			check_element_clickable(id, "ID");
+			__set_value_by_id(id, value_to_set);
+		}
 	}
 	
 	String get_value_by_xpath(String xpath)
