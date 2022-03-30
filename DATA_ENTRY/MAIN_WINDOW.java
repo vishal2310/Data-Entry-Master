@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	
 	String entry_result_for_mail = "***********************";
+	LOG_FILE_CS result_log_file_obj;
 	
 	MAIN_WINDOW()
 	{
@@ -13,7 +14,9 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	public static void main(String[] args)
 	{
 		MAIN_WINDOW main_window = new MAIN_WINDOW();
+		main_window.log_file_temp();
 
+		main_window.print_result_log_file("okkyyyy");
 		for (Map.Entry<String,String> entry : ID_PASS_DICT.entrySet())
 		{
 			String user_id = entry.getKey();
@@ -27,11 +30,13 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	
 	void work_task(String user_name, String password)
 	{	
-		open_new_webdriver(WAIT_TIME_SELENIUM);
+		open_new_webdriver(00);
 		open_link(WEBSITE_MASTER_SOLUTION);
 		
-		login(user_name, password);
+		skip_insecure_content();
 
+		login(user_name, password);
+		
 		//close_notification();
 
 		go_to_work_page();
@@ -50,6 +55,17 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 		close_webdriver();
 	}
 	
+	//temporary function
+	void skip_insecure_content()
+	{
+		String details_button_xpath = "//*[@id=\"details-button\"]";
+		String process_link_button_xpath = "//*[@id=\"proceed-link\"]";
+		
+		click_by_xpath(details_button_xpath);
+		click_by_xpath(process_link_button_xpath);
+	}
+	
+	//regular function
 	void login(String userName, String password)
 	{	
 		set_value_by_id(USER_NAME_ID_MST, userName);
@@ -151,8 +167,34 @@ public class MAIN_WINDOW extends  WEBDRIVER_CS{
 	{
 		SEND_MAIL_CS send_mail_obj = new SEND_MAIL_CS();
 		
+		/*send_email contains following argument
+		login_id,  password,  array of mail ids,  subject_of mail,  main body text*/
+		
 		send_mail_obj.send_email(LOGIN_ID_OUTLOOK, PASSWORD_OUTLOOK, MAIL_ID_TO_SEND_RESULT, 
 									"ENTRY...RESULT", entry_result_for_mail);
 	}
+	
+	void log_file_temp()
+	{
+		String folder_name = "C:\\Users\\Vishalpatel\\Desktop\\Master_Solution";
+		String file_name = "log_file.txt";
+		
+		
+		try 
+		{
+			result_log_file_obj = new LOG_FILE_CS(folder_name, file_name); 
+		} 
+		catch (IOException e) 
+		{
+			
+		}
+	}
+	
+	void print_result_log_file(String value)
+	{
+		result_log_file_obj.write_in_file(value);
+	}
+	
+	
 }
 

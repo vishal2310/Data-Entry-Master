@@ -11,7 +11,7 @@ public class SEND_MAIL_CS extends WEBDRIVER_CS{
 	
 	String NEW_MESSAGE_XPATH = "//span[text()='New message']";
 	String TO_LINE_EDIT_XPATH = "//input[@aria-label='To']";
-	String MAIL_ID_SELECTION_XPATH = "//span[@class='_4wS9glr5lB-SLUR2t26UQ _23JBt7fx0jOvhxZvDAKNBi']";
+	//String ID_SELECTOR_XPATH = "//*[@id=\\\"sug-item0\\\"]/span/div/div/div/div[1]/div";
 	String SUBJECT_LINE_EDIT_XPATH = "//input[@placeholder='Add a subject']";
 	String MESSAGE_BODY_XPATH =  "//div[@aria-label='Message body']//div";
 	String SEND_BUTTON_XPATH = "//button[@title='Send (Ctrl+Enter)']";
@@ -28,18 +28,26 @@ public class SEND_MAIL_CS extends WEBDRIVER_CS{
 		
 		click_by_xpath(NEW_MESSAGE_XPATH);
 		
+		static_wait(3000);
+		
 		for(int i = 0; i < mail_id_to_send_result.length; i++)
 		{
+			static_wait(1000);
 			set_value_by_xpath(TO_LINE_EDIT_XPATH, mail_id_to_send_result[i]);
-			click_by_xpath(MAIL_ID_SELECTION_XPATH);
+
+			static_wait(3000);
+			press_key_enter();
 		}
 		
 		set_value_by_xpath(SUBJECT_LINE_EDIT_XPATH, mail_subject);
 		
 		set_value_by_xpath(MESSAGE_BODY_XPATH, message_content);
 		
+		static_wait(3000);
+		
 		click_by_xpath(SEND_BUTTON_XPATH);
 		
+		static_wait(2000);
 		close_webdriver();
 	}
 	

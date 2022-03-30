@@ -10,18 +10,16 @@ public class GLOBAL_OBJECT_CS{
 	public GLOBAL_OBJECT_CS()
 	{
 		ID_PASS_DICT.put("IFNU9559", "Vishal.21");
-		ID_PASS_DICT.put("IFNU11339", "Vishal.21");	
-		ID_PASS_DICT.put("IFNU14233", "Vishal.21");
-		ID_PASS_DICT.put("IFNU6172", "@karan1212");
-		ID_PASS_DICT.put("IFNU6173", "@karan1212");
-		ID_PASS_DICT.put("IFNU6187", "Priyank@1209");
-	    ID_PASS_DICT.put("IFNU5039", "Pankil@1209");	
-		ID_PASS_DICT.put("IFNU11438", "Yuvipatel17@");		
-		ID_PASS_DICT.put("IFNU11441", "#Mmn2102");	
-		ID_PASS_DICT.put("IFNU11610", "Pankil@1209");		
-		ID_PASS_DICT.put("RKU12614", "ROOT@1111");
-		ID_PASS_DICT.put("IFNU14828", "Mayank.02");
-		ID_PASS_DICT.put("IFNU14544", "priyank@1209");
+//		ID_PASS_DICT.put("IFNU11339", "Vishal.21");	
+//		ID_PASS_DICT.put("IFNU14233", "Vishal.21");
+//		ID_PASS_DICT.put("IFNU6187", "Priyank@1209");
+//	    ID_PASS_DICT.put("IFNU5039", "Pankil@1209");	
+//		ID_PASS_DICT.put("IFNU11438", "Yuvipatel17@");		
+//		ID_PASS_DICT.put("IFNU11441", "#Mmn2102");	
+//		ID_PASS_DICT.put("IFNU11610", "Pankil@1209");		
+//		ID_PASS_DICT.put("RKU12614", "ROOT@1111");
+//		ID_PASS_DICT.put("IFNU14828", "Mayank.02");
+//		ID_PASS_DICT.put("IFNU14544", "priyank@1209");
 	}
 
 //selenium parameters
